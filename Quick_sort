@@ -1,0 +1,61 @@
+#include <stdio.h>
+void quicksort(int a[],int,int);
+int partition(int a[],int,int);
+void swap(int* , int* );
+void  main() {
+   int lb,ub;
+    int a[50],n,x;
+    printf("enter number of elements:");
+    scanf("%d",&n);
+    printf("enter the value of elements\n");
+    for(x=0;x<n;x++)
+    {
+        scanf("%d",&a[x]);
+    }
+    quicksort(a,0,n-1);//calling
+    printf("after quick sort\n");
+    for(x=0;x<n;x++)
+    {
+        printf("%d  ",a[x]);
+    }
+}
+void quicksort(int a[],int lb,int ub){
+   
+    if(lb<ub)
+    {
+        int loc;
+        loc=partition(a,lb,ub);
+        quicksort(a,lb,loc-1);
+        quicksort(a,loc+1,ub);
+    }
+   
+}
+
+
+
+int partition(int a[],int lb,int ub){
+    int pivot,start,end;
+    pivot=a[lb];
+    start=lb;
+    end=ub;
+    while(start<end){
+        while(a[start]<=pivot){
+            start++;
+        }
+        while(a[end]>pivot){
+            end--;
+        }
+  if(start<end)
+        {
+            swap(&a[start],&a[end]);
+        }
+    }
+    swap(&a[lb],&a[end]);
+    return end;
+}
+void swap(int* m, int* n)
+{
+    int t = *m;
+    *m = *n;
+    *n = t;
+}
