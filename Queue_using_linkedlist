@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct qnode
+{
+    int data;
+    struct qnode *next;
+}node;
+void enqueue(node **head,int item)
+{
+    node *ptr=(node*)malloc(sizeof(node));
+    node *last=*head;
+    ptr->data=item;
+    if(*head==NULL)
+    {
+        *head =ptr;
+        ptr->next=NULL;
+    }
+    else
+    {
+        while(last->next!=NULL)
+        {
+            last =last->next;
+        }
+        last->next=ptr;
+        ptr->next=NULL;
+    }
+   printf("Item Added");
+    
+}
+int dequeue(node **head)
+{
+    node *ptr=*head;
+    int item=ptr->data;
+    *head=ptr->next;
+    free(ptr);
+    return item;
+}
+    void display(node *head)
+    {
+        if(head==NULL)
+        printf("\nEmpty Queue");
+        
+        else{
+            while(head!=NULL)
+            {
+                printf("%d\t",head->data);
+                head=head->next;
+            }
+        }
+    }
+    void main()
+    {
+        int item,choice;
+        node *head=NULL;
+        printf("Press 1 for Enqueue\n Press 2 for Dequeue\nPress 3 for display queue\n ");
+        while(1)
+        {
+            printf("\nEnter choice:");
+            scanf("%d",&choice);
+            switch(choice){
+                case 1:printf("\nEnter item:");
+                scanf("%d",&item);
+            enqueue(&head,item);
+                break;
+            case 2:if(head ==NULL)
+            printf("\nEmpty Queue");
+            else
+            {
+                item= dequeue(&head);
+                printf("\nItem Deleted");
+            }
+            break;
+            case 3: display(head);
+            break;
+            default: exit(0);
+            }
+        }
+    }
