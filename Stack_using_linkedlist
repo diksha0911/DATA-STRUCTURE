@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include<stdlib.h>
+typedef struct stacknode
+{
+    int data;
+    struct stacknode *next;
+}node;
+void push(node **top,int item)
+{
+    node *ptr=(node*)malloc(sizeof(node));
+    ptr->data=item;
+    if(*top==NULL)
+    {
+        *top=ptr;
+        ptr->next=NULL;
+    }
+    else
+    {
+        ptr->next=*top;
+        *top=ptr;
+        printf("Item pushed");
+    }
+}
+int pop(node **top)
+{
+    node *ptr=*top;
+    int item=ptr->data;
+    *top=ptr->next;
+    free(ptr);
+    return item;
+}
+    void showtop(node *top)
+    {
+        if(top==NULL)
+        printf("\nempty stack");
+        
+        else
+        printf("\nTop of the stack :%d",top->data);
+    }
+    void main()
+    {
+        int item,choice;
+        node *top=NULL;
+        printf("Press 1 for push\n Press 2 for pop\nPress 3 for top value\n ");
+        while(1)
+        {
+            printf("\nEnter choice:");
+            scanf("%d",&choice);
+            switch(choice){
+                case 1:printf("\nEnter item:");
+                scanf("%d",&item);
+                push(&top,item);
+                break;
+            case 2:if(top==NULL)
+            printf("\nEmpty stack");
+            else
+            {
+                item=pop(&top);
+                printf("\nItem poped");
+            }
+            break;
+            case 3: showtop(top);
+            break;
+            default: exit(0);
+            }
+        }
+    }
